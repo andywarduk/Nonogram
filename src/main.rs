@@ -120,11 +120,11 @@ fn five_by_five() {
 
     fn solve_nonogram((top_clues, left_clues): ([&[u8]; 5], [&[u8]; 5])) -> [[u8; 5]; 5] {
         let top_clues_vec: Vec<Vec<u8>> = top_clues.iter().map(|l| {
-            l.iter().copied().collect()
+            l.to_vec()
         }).collect();
 
         let left_clues_vec: Vec<Vec<u8>> = left_clues.iter().map(|l| {
-            l.iter().copied().collect()
+            l.to_vec()
         }).collect();
 
         let board = nonogram_solver(5, 5, top_clues_vec, left_clues_vec);
@@ -604,13 +604,11 @@ fn alloc_space(space_left: usize, elem: usize, spaces: &mut Vec<u8>, elems: usiz
         return
     }
 
-    let min;
-
-    if elem == 0 {
-        min = 0
+    let min = if elem == 0 {
+        0
     } else {
-        min = 1
-    }
+        1
+    };
 
     if space_left < min {
         return
